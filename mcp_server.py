@@ -23,8 +23,10 @@ STORAGE_DIR = "storage"
 # Загружаем переменные окружения из .env (если есть)
 load_dotenv()
 
-
-mcp = FastMCP("office-to-markdown", json_response=True)
+# FastMCP >= 3.x: режим JSON-ответа можно включить через переменную
+# окружения FASTMCP_JSON_RESPONSE=true, поэтому флаг json_response
+# в конструкторе больше не используется.
+mcp = FastMCP("office-to-markdown")
 
 
 @mcp.tool()

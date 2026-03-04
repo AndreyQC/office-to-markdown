@@ -111,7 +111,7 @@ uv run --with fastmcp mcp_server.py
       "enabled": true,
       "url": "http://localhost:8787/mcp",
       "headers": {
-        "Authorization": "Bearer YOUR_SHARED_TOKEN"
+        "Authorization": "Bearer your-secret-mcp-token"
       },
       "timeout": 10000
     }
@@ -153,6 +153,7 @@ docker-compose.yml   # Запуск HTTP-сервиса через Docker Compos
 | MCP_HTTP_HOST  | Хост HTTP MCP-сервера (FastMCP)          | 0.0.0.0                      |
 | MCP_HTTP_PORT  | Порт HTTP MCP-сервера (FastMCP)          | 8787                         |
 | MCP_HTTP_PATH  | Путь HTTP MCP-сервера (FastMCP)          | /mcp                         |
+| FASTMCP_JSON_RESPONSE | Включить JSON-ответы FastMCP           | true                         |
 
 ## Ограничения
 
