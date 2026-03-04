@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  office-to-markdown:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_USERS=user1:pass1,user2:pass2
+      - MCP_TOKEN=your-secret-mcp-token
+    volumes:
+      - ./storage:/app/storage
+      - ./logs:/app/logs
+    restart: unless-stopped
