@@ -38,17 +38,28 @@ def convert_docx(file_bytes: bytes, images_dir: str) -> str:
                     break
 
     for rel in doc.part.rels.values():
-        if "image" in rel.target_ref:
-            image_data = rel.target_part.blob
-            image_ext = rel.target_ref.split(".")[-1]
-            image_name = f"img_{image_counter}.{image_ext}"
-            image_path = os.path.join(images_dir, image_name)
+        target_ref = getattr(rel, "target_ref", "") or ""
+        if "image" not in target_ref:
+            continue
 
-            with open(image_path, "wb") as f:
-                f.write(image_data)
+        # External relationships (linked web images) do not expose target_part.
+        if getattr(rel, "is_external", False):
+            continue
 
-            markdown.append(f"\n![image](images/{image_name})\n")
-            image_counter += 1
+        target_part = getattr(rel, "target_part", None)
+        if target_part is None:
+            continue
+
+        image_data = target_part.blob
+        image_ext = target_ref.split(".")[-1]
+        image_name = f"img_{image_counter}.{image_ext}"
+        image_path = os.path.join(images_dir, image_name)
+
+        with open(image_path, "wb") as f:
+            f.write(image_data)
+
+        markdown.append(f"\n![image](images/{image_name})\n")
+        image_counter += 1
 
     return "\n".join(markdown)
 

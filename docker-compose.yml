@@ -5,9 +5,14 @@ services:
     build: .
     ports:
       - "8000:8000"
+      - "8787:8787"
     environment:
       - APP_USERS=user1:pass1,user2:pass2
       - MCP_TOKEN=your-secret-mcp-token
+      - MCP_HTTP_HOST=0.0.0.0
+      - MCP_HTTP_PORT=8787
+      - MCP_HTTP_PATH=/mcp
+      - FASTMCP_JSON_RESPONSE=true
     volumes:
       - ./storage:/app/storage
       - ./logs:/app/logs

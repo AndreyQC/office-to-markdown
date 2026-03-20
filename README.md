@@ -160,3 +160,13 @@ docker-compose.yml   # Запуск HTTP-сервиса через Docker Compos
 - Максимальный размер файла: 30MB
 - Rate limit: 10 запросов в минуту на пользователя
 - TTL временных файлов: 1 час
+
+# В директории проекта
+podman build -t office-to-markdown .
+
+# Запуск контейнера с пробросом портов API и MCP
+podman run --rm -p 8000:8000 -p 8787:8787  --name office-to-markdown  office-to-markdown
+
+podman run --rm -p 8000:8000 -p 8787:8787 \
+  --name office-to-markdown \
+  office-to-markdown
